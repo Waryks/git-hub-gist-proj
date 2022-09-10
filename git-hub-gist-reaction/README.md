@@ -27,6 +27,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ## Versions of the app
 
 V1 - Multiple pages with less components (not a good idea)
+
 V2 - Restructured project with a Search page and a page to show data
 
 ## Further improvements
