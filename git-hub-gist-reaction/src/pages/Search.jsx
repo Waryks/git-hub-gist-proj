@@ -2,11 +2,19 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 function SearchPage(){
-    const [user, setUser] = useState("");
+    const [user, setUser] = useState('');
+    const [credentialError, setCredentialError] = useState('');
     const navigate = useNavigate();
 
     function handleSearch(event){
-        navigate(`/gists/${user}`)
+        event.preventDefault();
+        if(user && user !== ''){
+            setCredentialError('')
+            navigate(`/gists/${user}`)
+        }
+        else{
+            setCredentialError('ERROR! Invalid user inserted!')
+        }
     };
 
     return(
@@ -20,6 +28,7 @@ function SearchPage(){
                 <button onClick={handleSearch}> 
                     Search
                 </button>
+                <p>{credentialError}</p>
             </form>
         </div>
     );

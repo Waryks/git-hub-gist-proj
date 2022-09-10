@@ -1,15 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, { useState} from "react";
 import {Card, Chip, CardHeader, CardContent, Button} from '@mui/material';
-import {getAllGistURI, getGistContent, getGistForks} from "../config/config"
+import {getGistContent, getGistForks} from "../config/config"
 import "./GistDescription.css"
-import {getGistsFork} from "../data/getData";
 import {Forks} from "./Forks"
 import axios from "axios";
 
 const GistDescription = (data) => {
     const [dataFork, setDataFork] = useState([]);
     const [show, setShow] = useState(false);
-    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     const files = data.data.files;
@@ -33,8 +31,6 @@ const GistDescription = (data) => {
             } catch (err) {
                 setError(err.message);
                 setDataFork(null);
-            } finally {
-                setLoading(false);
             }
         }
     };
@@ -65,7 +61,6 @@ const GistDescription = (data) => {
                         })}
                     </ul>
 
-                    {loading && <div>Loading...</div>}
                     {show && dataFork !== [] ? <Forks forks={dataFork} /> : null}
                 </CardContent>
             </Card>

@@ -8,10 +8,11 @@ const UserGists = (data, user) => {
           <ul>
             {data.data.map((gist) => {
               return <div key={gist.id}><GistDescription data={gist} />
-                <br/></div>
+                        <br/>
+                    </div>
             })}
           </ul>
-      ) : null}
+      ) : <p>User has nothing to show!</p>}
     </>
   );
 };

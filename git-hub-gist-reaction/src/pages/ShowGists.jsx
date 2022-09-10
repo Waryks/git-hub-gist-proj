@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import { useParams } from "react-router-dom";
-import { getAllGistURI, getGistContent } from "../config/config"
-
-import { getDataUsers } from "../data/getData"
+import { getAllGistURI } from "../config/config"
+import { UserGists } from '../components/UserGists';
+import {Footer} from "../components/Footer";
 
 import axios from "axios"
-import { UserGists } from '../components/UserGists';
+
 
 function ShowGistsPage(){
     let {user} = useParams();
@@ -13,6 +13,7 @@ function ShowGistsPage(){
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [found, setFound] = useState(false);
 
       useEffect(() => {
         const getData = async () => {
@@ -20,8 +21,16 @@ function ShowGistsPage(){
             const response = await axios.get(
                 getAllGistURI(user.trim())
             );
-            setData(response.data);
-            setError(null);
+            if(response){
+                setData(response.data);
+                setError(null);
+                setFound(true);
+            }
+            else{
+                setError(true);
+                setData(null)
+                setFound(false);
+            }
           } catch (err) {
             setError(err.message);
             setData(null);
@@ -32,19 +41,24 @@ function ShowGistsPage(){
         getData();
       }, []);
 
-      
+
 
       return (
         <div>
-          <h1>The gists of the user {user}</h1>
+            {found && <h1>The gists of the user {user}</h1>}
           {loading && <div>Loading...</div>}
-          {error && (
+          {error && error === 'Request failed with status code 404' && (
+            <div>{'User not found try another!'}</div>
+          )}
+          {error && error !== 'Request failed with status code 404' && (
             <div>{`There is a problem fetching the post data - ${error}`}</div>
           )}
           <ul>
             {data && <UserGists data={data} user={user} />}
+              <Footer/>
           </ul>
         </div>
+
       );
 }
 

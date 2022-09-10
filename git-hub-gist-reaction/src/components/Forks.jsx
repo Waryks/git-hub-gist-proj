@@ -1,5 +1,5 @@
 import React from "react";
-import {Avatar, Card, CardHeader, CardContent} from '@mui/material';
+import {Avatar, Card, CardContent} from '@mui/material';
 import "./Forks.css"
 
 const Forks = (data) => {
