@@ -38,7 +38,7 @@ Adding more functionality such as:
 
 ## Note
 
-The data folder is just for testing purposes to not overrun the API with requests.
+The data folder is just for testing purposes in the development phase to not overrun the API with requests.
 
 ## Learn More
 
