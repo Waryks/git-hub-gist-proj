@@ -32,7 +32,7 @@ V2 - Restructured project with a Search page and a page to show data
 
 ## Further improvements
 
-Better UI/UX
+Better UI/UX (more responsive to minimization and phone usage)
 Adding more functionality such as:
  1. Search bar overlay that can be glised upwards to show the search.
  2. Better user experience by including the search page and the page for showing data in one single page that just adds more components.
