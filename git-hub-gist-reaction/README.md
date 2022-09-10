@@ -39,7 +39,7 @@ Adding more functionality such as:
  3. Instead of reddirecting the users to show data about a gist it will be shown as a new component at the bottom of the gist box
  4. Reddirects to user profile and also fork profiles
 
-##Note
+## Note
 
 The data folder is just for testing purposes to not overrun the API with requests.
 
