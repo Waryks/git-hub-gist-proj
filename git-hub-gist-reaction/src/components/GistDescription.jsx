@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import {Card, Chip, CardHeader, CardContent, Button} from '@mui/material';
-import { getAllGistURI, getGistContent } from "../config/config"
+import {getAllGistURI, getGistContent, getGistForks} from "../config/config"
 import "./GistDescription.css"
 import {getGistsFork} from "../data/getData";
 import {Forks} from "./Forks"
+import axios from "axios";
 
 const GistDescription = (data) => {
     const [dataFork, setDataFork] = useState([]);
     const [show, setShow] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     const files = data.data.files;
     const fileArr = []
@@ -18,10 +21,21 @@ const GistDescription = (data) => {
       }
     }
 
-    const openFork = (idGist) => {
-        if (idGist !== "") {
-            setDataFork(getGistsFork());
-            setShow(true);
+    const openFork = async (idGist) => {
+        if (idGist && idGist !== "") {
+            try {
+                const response = await axios.get(
+                    getGistForks(idGist.trim())
+                );
+                setDataFork(response.data);
+                setShow(true);
+                setError(null);
+            } catch (err) {
+                setError(err.message);
+                setDataFork(null);
+            } finally {
+                setLoading(false);
+            }
         }
     };
 
@@ -32,10 +46,13 @@ const GistDescription = (data) => {
             >
                 <CardHeader
                 title={data.data.description}
-                subheader={"No. Files" + Object.keys(files).length}
+                subheader={"No. Files " + Object.keys(files).length}
                 />
                 <CardContent>
-                    <Button onClick={() => openFork(data.data.id)}>Show forks</Button>
+                    { data && !error ? (
+                        <Button onClick={() => openFork(data.data.id)}>Show forks</Button>
+                    ) : null}
+
                     {fileArr.map((language, index) => {
                         return (
                             <Chip key={index} label={language}/>
@@ -48,6 +65,7 @@ const GistDescription = (data) => {
                         })}
                     </ul>
 
+                    {loading && <div>Loading...</div>}
                     {show && dataFork !== [] ? <Forks forks={dataFork} /> : null}
                 </CardContent>
             </Card>

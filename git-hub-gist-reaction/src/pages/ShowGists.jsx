@@ -14,7 +14,7 @@ function ShowGistsPage(){
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    /*  useEffect(() => {
+      useEffect(() => {
         const getData = async () => {
           try {
             const response = await axios.get(
@@ -30,13 +30,8 @@ function ShowGistsPage(){
           }
         };
         getData();
-      }, []);*/
-      //<a href={getGistContent(user,id)} target="_blank" rel="noopener noreferrer">html_url</a>
-      useEffect(() => {
-        setData(getDataUsers());
-        setLoading(false)
-        setError(null);
       }, []);
+
       
 
       return (
