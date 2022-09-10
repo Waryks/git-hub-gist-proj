@@ -11,8 +11,8 @@ const Footer = () => {
     }
 
     return (
-            <Box>
-                <BottomNavigation className="stickToBottom" value={value} onChange={onChange} showLabels>
+            <Box className="stickToBottom">
+                <BottomNavigation value={value} onChange={onChange} showLabels>
                     <BottomNavigationAction component={Link} to={'/'} value={'/'} label='Back'/>
                 </BottomNavigation>
             </Box>

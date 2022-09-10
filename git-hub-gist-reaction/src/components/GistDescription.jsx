@@ -1,5 +1,5 @@
 import React, { useState} from "react";
-import {Card, Chip, CardHeader, CardContent, Button} from '@mui/material';
+import {Card, Chip, CardHeader, CardContent, Button, Avatar} from '@mui/material';
 import {getGistContent, getGistForks} from "../config/config"
 import "./GistDescription.css"
 import {Forks} from "./Forks"
@@ -41,8 +41,9 @@ const GistDescription = (data) => {
                 sx={{ width: 3/4 , minWidth: 300}}
             >
                 <CardHeader
-                title={data.data.description}
-                subheader={"No. Files " + Object.keys(files).length}
+                    avatar={<Avatar alt="NaN" src={data.data.owner.avatar_url}/>}
+                    title={data.data.description}
+                    subheader={"No. Files " + Object.keys(files).length}
                 />
                 <CardContent>
                     { data && !error ? (

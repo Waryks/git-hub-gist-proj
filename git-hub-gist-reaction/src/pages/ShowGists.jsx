@@ -4,6 +4,8 @@ import { getAllGistURI } from "../config/config"
 import { UserGists } from '../components/UserGists';
 import {Footer} from "../components/Footer";
 
+import './ShowGists.css'
+
 import axios from "axios"
 
 
@@ -45,7 +47,7 @@ function ShowGistsPage(){
 
       return (
         <div>
-            {found && <h1>The gists of the user {user}</h1>}
+            {found && <h1 className="h1">{user}</h1>}
           {loading && <div>Loading...</div>}
           {error && error === 'Request failed with status code 404' && (
             <div>{'User not found try another!'}</div>

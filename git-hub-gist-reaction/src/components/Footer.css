@@ -1,5 +1,5 @@
 .stickToBottom {
     position: fixed;
     bottom: 0;
-
+    padding-left: 80%;
 }
