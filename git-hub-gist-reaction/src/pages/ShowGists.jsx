@@ -5,15 +5,16 @@ import { getAllGistURI, getGistContent } from "../config/config"
 import { getDataUsers } from "../data/getData"
 
 import axios from "axios"
+import { UserGists } from '../components/UserGists';
 
 function ShowGistsPage(){
     let {user} = useParams();
 
-    /*const [data, setData] = useState(null);
+    const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-      useEffect(() => {
+    /*  useEffect(() => {
         const getData = async () => {
           try {
             const response = await axios.get(
@@ -30,30 +31,23 @@ function ShowGistsPage(){
         };
         getData();
       }, []);*/
-
-      const data = getDataUsers();
-      const loading = false;
-      const error = null;
+      //<a href={getGistContent(user,id)} target="_blank" rel="noopener noreferrer">html_url</a>
+      useEffect(() => {
+        setData(getDataUsers());
+        setLoading(false)
+        setError(null);
+      }, []);
+      
 
       return (
-        <div className="ShowGists">
+        <div>
           <h1>The gists of the user {user}</h1>
           {loading && <div>Loading...</div>}
           {error && (
             <div>{`There is a problem fetching the post data - ${error}`}</div>
           )}
           <ul>
-            {data &&
-              data.map(({ id, files, description }) => (
-                <div>
-                  <li key={id}>
-                  <h2>{description}</h2>
-                  <button>Forks</button>
-                    <h3>Number of files: {Object.keys(files).length}</h3>
-                    <a href={getGistContent(user,id)} target="_blank" rel="noopener noreferrer">html_url</a>
-                  </li>
-                </div>
-              ))}
+            {data && <UserGists data={data} user={user} />}
           </ul>
         </div>
       );
