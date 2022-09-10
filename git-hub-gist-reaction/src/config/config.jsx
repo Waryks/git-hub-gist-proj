@@ -2,8 +2,12 @@ const getAllGistURI = (user) => {
   return `${process.env.REACT_APP_API_URL}/users/${user}/gists`;
 };
 
-const getSingleGistURI = (gistId) => {
-  return `${process.env.REACT_APP_API_URL}/gists/${gistId}`;
+const getGistForks = (gistId) => {
+  return `${process.env.REACT_APP_API_URL}/gists/${gistId}/forks`;
 };
 
-export {getAllGistURI, getSingleGistURI};
+const getGistContent = (gistUser, gistId) => {
+  return `https://gist.githubusercontent.com/${gistUser}/${gistId}/raw`
+};
+
+export {getAllGistURI, getGistForks, getGistContent};
