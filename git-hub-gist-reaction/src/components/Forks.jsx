@@ -1,11 +1,24 @@
-import React, { useState } from "react";
-import {Card, Chip, CardHeader, CardContent, Button} from '@mui/material';
-import { getAllGistURI, getGistContent } from "../config/config"
+import React from "react";
+import {Avatar, Card, CardHeader, CardContent} from '@mui/material';
+import "./Forks.css"
 
 const Forks = (data) => {
-    console.log(data)
     return (
-        <h1>Test</h1>
+        <div className="div">
+        <h1>Forks</h1>
+            <Card>
+                <CardContent>
+                {data.forks && data.forks.length !== 0 ? Object.keys(data.forks).slice(0, 3).map((key) =>{
+                return <ul key={key} className='ul'>
+                            <li>
+                                <Avatar alt={null} src={data.forks[key].owner.avatar_url}/>
+                                <p>{data.forks[key].owner.login}</p>
+                            </li>
+                        </ul>
+                    }) : <p>Nothing to show</p>}
+                </CardContent>
+            </Card>
+    </div>
     );
 };
 

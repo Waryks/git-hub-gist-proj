@@ -35,7 +35,7 @@ const GistDescription = (data) => {
                 subheader={"No. Files" + Object.keys(files).length}
                 />
                 <CardContent>
-                    <Button onClick={() => openFork(data.data.id)}>Forks</Button>
+                    <Button onClick={() => openFork(data.data.id)}>Show forks</Button>
                     {fileArr.map((language, index) => {
                         return (
                             <Chip key={index} label={language}/>
