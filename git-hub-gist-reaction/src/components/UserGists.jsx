@@ -6,8 +6,9 @@ const UserGists = (data, user) => {
     <>
       {user !== null && data.data.length !== 0 ? (
           <ul>
-            {data.data.map((gist, index) => {
-              return <GistDescription key={gist.id} data={gist} />;
+            {data.data.map((gist) => {
+              return <div key={gist.id}><GistDescription data={gist} />
+                <br/></div>
             })}
           </ul>
       ) : null}

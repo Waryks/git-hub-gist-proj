@@ -1,9 +1,14 @@
-import React from "react";
-import { Card, Button, Chip, Box } from '@mui/material';
+import React, { useState } from "react";
+import {Card, Chip, CardHeader, CardContent, Button} from '@mui/material';
 import { getAllGistURI, getGistContent } from "../config/config"
+import "./GistDescription.css"
+import {getGistsFork} from "../data/getData";
+import {Forks} from "./Forks"
 
 const GistDescription = (data) => {
-    console.log(data.data.files)
+    const [dataFork, setDataFork] = useState([]);
+    const [show, setShow] = useState(false);
+
     const files = data.data.files;
     const fileArr = []
     for (let index in files) {
@@ -13,34 +18,39 @@ const GistDescription = (data) => {
       }
     }
 
+    const openFork = (idGist) => {
+        if (idGist !== "") {
+            setDataFork(getGistsFork());
+            setShow(true);
+        }
+    };
+
     return (
         <div>
             <Card
-                
-                title={data.description || "NaN"}
-                extra={
-                    <Button>
-                        Forks
-                    </Button>
-                }
+                sx={{ width: 3/4 , minWidth: 300}}
             >
-                <div>
+                <CardHeader
+                title={data.data.description}
+                subheader={"No. Files" + Object.keys(files).length}
+                />
+                <CardContent>
+                    <Button onClick={() => openFork(data.data.id)}>Forks</Button>
                     {fileArr.map((language, index) => {
                         return (
                             <Chip key={index} label={language}/>
                         );
                     })}
-                    {Object.keys(files).map((key) => {
 
-                        return <a href={getGistContent(data.data.owner.login,data.data.id, files[key].filename)} target="_blank" rel="noopener noreferrer"> {files[key].filename}</a>
-                    })}
-                          
-                    <p>No. Files {Object.keys(files).length}</p>
-                </div>
+                    <ul className='ul'>
+                        {Object.keys(files).map((key) => {
+                            return <li key={key}> <a href={getGistContent(data.data.owner.login,data.data.id, files[key].filename)} target="_blank" rel="noopener noreferrer"> {files[key].filename} </a></li>
+                        })}
+                    </ul>
 
+                    {show && dataFork !== [] ? <Forks forks={dataFork} /> : null}
+                </CardContent>
             </Card>
-            
-
         </div>
     );
 
