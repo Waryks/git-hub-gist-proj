@@ -60,7 +60,6 @@ const GistDescription = (data) => {
                             return <li key={key}> <a href={getGistContent(data.data.owner.login,data.data.id, files[key].filename)} target="_blank" rel="noopener noreferrer"> {files[key].filename} </a></li>
                         })}
                     </ul>
-
                     {show && dataFork !== [] ? <Forks forks={dataFork} /> : null}
                 </CardContent>
             </Card>
